@@ -1,0 +1,62 @@
+/* ============================================================
+   Escape Print — Couleurs
+   Système 2 couches :
+   · Couche 1 = identité permanente (crème · encre · doré · orange)
+   · Couche 2 = palette par kit, appliquée via [data-theme]
+   Règles d'or : jamais blanc pur, jamais noir pur, jamais gris froid.
+   ============================================================ */
+:root{
+  /* — Surfaces (crème, jamais blanc pur) — */
+  --surface-base:#FFF8E7;      /* fond de page */
+  --surface-raised:#FFFDF6;    /* cartes, éléments surélevés */
+  --surface-sunken:#F7EFD9;    /* champs, puits, zones en creux */
+  --surface-overlay:rgba(44,44,44,.55); /* voile sous modales */
+
+  /* — Encre (texte, jamais noir pur) — */
+  --ink:#2C2C2C;          /* texte / traits principaux */
+  --ink-soft:#5A554C;     /* texte secondaire (gris chaud) */
+  --ink-faint:#8A8377;    /* légendes, placeholders, désactivé */
+  --ink-on-color:#FFF8E7; /* texte crème sur fonds très foncés */
+
+  /* — Doré signature — */
+  --gold:#D4A847;       /* frises, tampon, ornements (décoratif) */
+  --gold-deep:#9C7518;  /* TEXTE / bordures dorés (AA sur crème) */
+  --gold-soft:#F2E6C2;  /* fond doré pâle, bandeaux premium */
+
+  /* — Marque : orange chaleureux (action principale) — */
+  --brand:#F2A65A;       /* bouton primaire (+ texte encre) */
+  --brand-hover:#E8893A; /* survol */
+  --brand-press:#D4762A; /* enfoncé / actif */
+  --brand-soft:#FCEAD6;  /* pastilles, emphase douce */
+  --brand-ink:#8A4B1A;   /* TEXTE orange sur crème (AA) */
+
+  /* — Support : vert forêt (liens, nature, succès) — */
+  --support:#3F7D5C;       /* accents, grand texte, icônes */
+  --support-text:#2E5E44;  /* liens en ligne / texte (AA) */
+  --support-soft:#E2EDE2;  /* fond vert pâle */
+
+  /* — Bordures — */
+  --border-hairline:#E8DCC0; /* filets discrets (tan chaud) */
+  --border-ink:#2C2C2C;      /* contour encre 2px « fiche indice » */
+  --border-gold:#D4A847;     /* contour doré premium */
+
+  /* — Feedback (accordé au crème, jamais criard) — */
+  --success:#3F7D5C;      --success-soft:#E2EDE2;
+  --error:#B23A2E;        --error-soft:#F7E2DE;   /* terracotta */
+  --warning:#D4762A;      --warning-soft:#FCEAD6;
+  --info:#2C6E91;         --info-soft:#D4E4EE;    /* bleu pirate */
+
+  /* — Couche 2 : variables ACTIVES du kit (défaut = Pirates) — */
+  --kit-primary:#2C6E91; /* dominante : bandeaux, titres de section */
+  --kit-deep:#1B4D6B;    /* contraste, profondeur */
+  --kit-light:#D4E4EE;   /* fonds doux, chips */
+  --kit-accent:#C95A3D;  /* touches ponctuelles (★, détails) */
+}
+
+/* === Couche 2 — les 6 palettes thématiques (réassignent --kit-*) === */
+[data-theme="pirates"]  {--kit-primary:#2C6E91;--kit-deep:#1B4D6B;--kit-light:#D4E4EE;--kit-accent:#C95A3D;}
+[data-theme="foret"]    {--kit-primary:#5A8A4A;--kit-deep:#3E6831;--kit-light:#DEE9CF;--kit-accent:#A56638;}
+[data-theme="sorciers"] {--kit-primary:#6B4E9C;--kit-deep:#4A3470;--kit-light:#E2D8F0;--kit-accent:#2E8C6E;}
+[data-theme="spatiale"] {--kit-primary:#2E3A8C;--kit-deep:#1A2461;--kit-light:#D5DBEC;--kit-accent:#D9457A;}
+[data-theme="halloween"]{--kit-primary:#6B3E6E;--kit-deep:#4A2A4C;--kit-light:#E8D6EB;--kit-accent:#D9712A;}
+[data-theme="noel"]     {--kit-primary:#A8322A;--kit-deep:#7C231D;--kit-light:#F3D5D2;--kit-accent:#1F5A3D;}

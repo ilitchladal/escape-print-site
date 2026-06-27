@@ -1,0 +1,25 @@
+/* ============================================================
+   Escape Print — Ombres, focus, mouvement
+   Ombres teintées chaud (brun #4A3A1E), jamais noir pur.
+   ============================================================ */
+:root{
+  /* — Ombres douces (chaudes) — */
+  --sh-sm:0 1px 2px rgba(74,58,30,.08);
+  --sh-md:0 4px 12px rgba(74,58,30,.10);
+  --sh-lg:0 12px 28px rgba(74,58,30,.14);
+
+  /* — Ombre dorée décalée « fiche indice » (signature print) — */
+  --sh-clue:6px 6px 0 var(--gold);
+  --sh-clue-hover:8px 8px 0 var(--gold);
+
+  /* — Focus : anneau doré 3px, accessible clavier — */
+  --focus-ring:0 0 0 3px rgba(212,168,71,.65);
+  --focus-offset:2px;
+
+  /* — Mouvement — */
+  --d-fast:120ms;  /* hover, micro-feedback */
+  --d-base:200ms;
+  --d-slow:320ms;  /* entrées carte/modale */
+  --e-out:cubic-bezier(.22,1,.36,1);   /* entrées douces */
+  --e-pop:cubic-bezier(.34,1.56,.64,1); /* rebond ludique */
+}

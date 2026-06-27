@@ -1,0 +1,11 @@
+/* ============================================================
+   Escape Print — Design System (entrée globale)
+   Importé une fois depuis src/main.jsx.
+   Ne contient QUE des @import.
+   ============================================================ */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/effects.css";
+@import "./tokens/base.css";

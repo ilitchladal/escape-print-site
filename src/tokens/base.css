@@ -1,0 +1,33 @@
+/* ============================================================
+   Escape Print — Reset & base typographique
+   ============================================================ */
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+  color:var(--ink);
+  background:var(--surface-base);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,h4,h5{
+  font-family:var(--font-display);
+  line-height:var(--lh-heading);
+  font-weight:var(--fw-semibold);
+  letter-spacing:var(--ls-tight);
+  margin:0;
+}
+p{margin:0;}
+a{
+  color:var(--support-text);
+  text-decoration:underline;
+  text-underline-offset:3px;
+  text-decoration-thickness:1.5px;
+  transition:color var(--d-fast) var(--e-out);
+}
+a:hover{color:var(--support);}
+:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--r-sm);}
+img{max-width:100%;display:block;}

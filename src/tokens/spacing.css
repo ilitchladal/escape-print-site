@@ -1,0 +1,27 @@
+/* ============================================================
+   Escape Print — Espacement, rayons, layout
+   Base 8px avec demi-pas 4px.
+   ============================================================ */
+:root{
+  /* — Espacement — */
+  --sp-1:4px;  --sp-2:8px;  --sp-3:12px; --sp-4:16px; --sp-5:24px;
+  --sp-6:32px; --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px;
+
+  /* — Rayons (rondeur = chaleur) — */
+  --r-sm:6px;    /* champs, petites pastilles */
+  --r-md:12px;   /* boutons, petites cartes */
+  --r-lg:20px;   /* cartes produit/kit */
+  --r-xl:28px;   /* panneaux hero, modales */
+  --r-pill:999px;/* tags, badges */
+
+  /* — Bordures — */
+  --bw-hairline:1px;
+  --bw-card:2px; /* contour encre « fiche indice » */
+
+  /* — Layout — */
+  --container:1200px;
+  --container-pad:24px;
+
+  /* — Breakpoints (référence) — */
+  --bp-sm:640px; --bp-md:768px; --bp-lg:1024px; --bp-xl:1280px;
+}

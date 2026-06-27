@@ -1,0 +1,11 @@
+/* ============================================================
+   Escape Print — Webfonts
+   Fredoka (titres, tampons) · Nunito (corps, UI)
+
+   Les polices sont chargées via Google Fonts (<link> dans index.html)
+   plutôt que self-hébergées : ce sont des familles Google standard,
+   ça évite d'embarquer ~11 fichiers .ttf.
+
+   Pour self-héberger à la place : déposer les .ttf dans public/fonts/
+   et rétablir ici les @font-face (src: url('/fonts/Fredoka-Regular.ttf')).
+   ============================================================ */
