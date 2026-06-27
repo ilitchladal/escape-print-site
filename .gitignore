@@ -9,6 +9,9 @@ dist-ssr
 vite-dev.log
 vite-dev.err.log
 
+# Local review artifacts (before/after screenshots)
+_review-screenshots/
+
 # Editor
 .vscode/*
 !.vscode/extensions.json

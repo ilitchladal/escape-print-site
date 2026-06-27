@@ -2,7 +2,18 @@
    Escape Print — Reset & base typographique
    ============================================================ */
 *{box-sizing:border-box;}
-html{-webkit-text-size-adjust:100%;}
+/* GLOBAL SCALE KNOB.
+   font-size on <html> is the single systemic lever for the whole UI: every
+   token in rem (all --fs-* type sizes and all --sp-* spacing) scales from it,
+   so 90% = the entire interface one notch more compact, proportions intact.
+   Breakpoints stay in px, so responsive behaviour is unchanged.
+   Set to 100% to revert.
+
+   overflow-x:clip stops off-canvas elements (e.g. the closed cart drawer,
+   translated off-screen right) from creating a phantom horizontal scrollbar.
+   Unlike overflow:hidden it doesn't create a scroll container, so the sticky
+   header keeps working. */
+html{font-size:90%;-webkit-text-size-adjust:100%;overflow-x:clip;}
 body{
   margin:0;
   font-family:var(--font-body);

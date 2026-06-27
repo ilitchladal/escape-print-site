@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "PowerShell(node _shot.mjs before $out)",
+      "PowerShell($out = \"C:\\\\Users\\\\ilitc\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-ilitc-Projets-escape-print-site\\\\2216694f-9afe-4bc4-8e56-ca7eb03cc50f\\\\scratchpad\")",
+      "PowerShell(node _measure.mjs)",
+      "PowerShell(node _shot.mjs after $out)",
+      "PowerShell(\"=== after screenshots ===\")",
+      "PowerShell(npm run *)",
+      "PowerShell(node _shot2.mjs panel-before $out)",
+      "PowerShell(Remove-Item *)",
+      "PowerShell(node _scale.mjs scale-before $out)",
+      "PowerShell(node _scale.mjs scale-after $out)"
     ]
   }
 }

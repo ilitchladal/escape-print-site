@@ -3,9 +3,10 @@
    Base 8px avec demi-pas 4px.
    ============================================================ */
 :root{
-  /* — Espacement — */
-  --sp-1:4px;  --sp-2:8px;  --sp-3:12px; --sp-4:16px; --sp-5:24px;
-  --sp-6:32px; --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px;
+  /* — Espacement — (en rem : suit l'échelle globale via html{font-size}) —
+     Base 16px → 1rem ; demi-pas 4px → 0.25rem. */
+  --sp-1:0.25rem; --sp-2:0.5rem;  --sp-3:0.75rem; --sp-4:1rem;   --sp-5:1.5rem;
+  --sp-6:2rem;    --sp-7:3rem;    --sp-8:4rem;    --sp-9:6rem;   --sp-10:8rem;
 
   /* — Rayons (rondeur = chaleur) — */
   --r-sm:6px;    /* champs, petites pastilles */
@@ -19,8 +20,8 @@
   --bw-card:2px; /* contour encre « fiche indice » */
 
   /* — Layout — */
-  --container:1200px;
-  --container-pad:24px;
+  --container:1200px;        /* cap de largeur, reste en px */
+  --container-pad:1.5rem;    /* 24px à l'échelle 100% */
 
   /* — Breakpoints (référence) — */
   --bp-sm:640px; --bp-md:768px; --bp-lg:1024px; --bp-xl:1280px;

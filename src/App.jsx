@@ -5,9 +5,17 @@ import { KitGrid } from './boutique/KitGrid.jsx';
 import { ProductDetail } from './boutique/ProductDetail.jsx';
 import { CartDrawer } from './boutique/CartDrawer.jsx';
 import { Footer } from './boutique/Footer.jsx';
+import { KITS } from './boutique/data.js';
+
+// Deep-link: ?kit=<id> opens that product directly (shareable product URLs).
+function initialView() {
+  const id = new URLSearchParams(window.location.search).get('kit');
+  const kit = id && KITS.find((k) => k.id === id);
+  return kit ? { name: 'product', kit } : { name: 'home', kit: null };
+}
 
 export default function App() {
-  const [view, setView] = React.useState({ name: 'home', kit: null });
+  const [view, setView] = React.useState(initialView);
   const [cart, setCart] = React.useState([]);
   const [cartOpen, setCartOpen] = React.useState(false);
 
