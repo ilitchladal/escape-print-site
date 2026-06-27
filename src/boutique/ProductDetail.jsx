@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Stars, Alert } from '../components';
 import { KITS } from './data.js';
 
-const FOX_HEAD = '/assets/mascotte-renard-tete.png';
+const FOX_HEAD = '/assets/mascotte-renard-tete.webp';
 
 function Feature({ icon, children }) {
   return (

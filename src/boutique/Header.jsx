@@ -2,7 +2,7 @@
 // The fox-head mark loads from /assets/mascotte-renard-tete.png (public/).
 import React from 'react';
 
-const FOX_HEAD = '/assets/mascotte-renard-tete.png';
+const FOX_HEAD = '/assets/mascotte-renard-tete.webp';
 
 export function Logo() {
   return (

@@ -1,21 +1,27 @@
 # Assets publics
 
-Dépose ici les images de la marque. Elles sont servies à la racine du site
-(ex. `public/assets/mascotte-renard-tete.png` → accessible en `/assets/mascotte-renard-tete.png`).
+Les fichiers ici sont servis à la racine du site
+(ex. `public/assets/mascotte-renard-tete.webp` → `/assets/mascotte-renard-tete.webp`).
 
-## Fichier attendu par le code
+## Mascotte (en place)
 
-Le site référence **`/assets/mascotte-renard-tete.png`** (la tête du renard
-détective) dans le header, le hero et la fiche produit.
+Le site utilise **`mascotte-renard-tete.webp`** (tête du renard détective) dans
+le header, le hero et la fiche produit.
 
-➡️ **Copie ton image de tête de renard ici sous le nom exact :**
+Elle a été générée à partir du PNG d'origine (1545×1999, ~1,9 Mo), redimensionnée
+à 384 px max et compressée en WebP → **~13 Ko** (-99 %). Le PNG source n'est pas
+conservé dans `public/` pour ne pas alourdir le build ; garde ton original ailleurs.
+
+### Régénérer (si tu remplaces la mascotte)
+
+Dépose le nouveau PNG, installe sharp puis convertis :
 
 ```
-public/assets/mascotte-renard-tete.png
+npm install --no-save sharp
+node -e "import('sharp').then(s=>s.default('public/assets/SOURCE.png').resize({width:384,height:384,fit:'inside',withoutEnlargement:true}).webp({quality:82,effort:6}).toFile('public/assets/mascotte-renard-tete.webp'))"
 ```
 
-(C'est l'équivalent de `Mascotte_tete_transparent.png` que tu as en local —
-renomme-la `mascotte-renard-tete.png`.)
+## Autres images
 
-Tu peux aussi déposer les autres mascottes / illustrations dont tu disposes
-(loupe, monocle, illustrations d'univers) et me dire où tu veux les afficher.
+Dépose ici tes autres mascottes / illustrations d'univers et dis-moi où les
+afficher.
