@@ -1,6 +1,7 @@
 // Header — boutique top bar: wordmark, universe nav, search, cart.
 // The fox-head mark loads from /assets/mascotte-renard-tete.png (public/).
 import React from 'react';
+import { useWidth } from './useViewport.js';
 
 const FOX_HEAD = '/assets/mascotte-renard-tete.webp';
 
@@ -26,6 +27,8 @@ export function Logo() {
 
 export function Header({ cartCount = 0, onCart, onHome, onKits }) {
   const nav = ['Tous les kits'];
+  const w = useWidth();
+  const narrow = w < 560; // hide the (redundant) nav link on phones
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
   const searchRef = React.useRef(null);
@@ -39,10 +42,10 @@ export function Header({ cartCount = 0, onCart, onHome, onKits }) {
     }}>
       <div style={{
         maxWidth: 'var(--container)', margin: '0 auto', padding: '12px var(--container-pad)',
-        display: 'flex', alignItems: 'center', gap: 'var(--sp-5)',
+        display: 'flex', alignItems: 'center', gap: narrow ? 'var(--sp-3)' : 'var(--sp-5)',
       }}>
-        <div onClick={goHome} style={{ cursor: 'pointer' }}><Logo /></div>
-        <nav style={{ display: 'flex', gap: 'var(--sp-5)', marginLeft: 'var(--sp-4)', flex: 1 }}>
+        <div onClick={goHome} style={{ cursor: 'pointer', marginRight: narrow ? 'auto' : 0 }}><Logo /></div>
+        <nav style={{ display: narrow ? 'none' : 'flex', gap: 'var(--sp-5)', marginLeft: 'var(--sp-4)', flex: 1 }}>
           {nav.map((n) => (
             <a key={n} href="#" onClick={(e) => { e.preventDefault(); onKits ? onKits() : (onHome && onHome()); }} style={{
               fontFamily: 'var(--font-display)', fontWeight: 500, fontSize: 'var(--fs-small)',
@@ -59,7 +62,8 @@ export function Header({ cartCount = 0, onCart, onHome, onKits }) {
                 onBlur={() => { if (!query) setSearchOpen(false); }}
                 placeholder="Rechercher un kit…" aria-label="Rechercher un kit"
                 style={{
-                  width: 180, fontFamily: 'var(--font-body)', fontSize: 'var(--fs-small)',
+                  width: narrow ? 140 : 180, maxWidth: '42vw', minWidth: 0,
+                  fontFamily: 'var(--font-body)', fontSize: 'var(--fs-small)',
                   padding: '8px 12px', borderRadius: 'var(--r-md)',
                   border: '1.5px solid var(--border-hairline)', background: 'var(--surface-base)', color: 'var(--ink)',
                 }}

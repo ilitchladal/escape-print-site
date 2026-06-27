@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '../components';
 import { KITS } from './data.js';
+import { useWidth } from './useViewport.js';
 
 const FOX_HEAD = '/assets/mascotte-renard-tete.webp';
 
@@ -14,9 +15,11 @@ export function Hero({ onShop, onOpen }) {
   React.useEffect(() => { if (miniOpen && miniRef.current) miniRef.current.focus(); }, [miniOpen]);
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [miniSent, miniOpen]);
   const featured = KITS.find((k) => k.detective) || KITS[0];
+  const w = useWidth();
+  const twoCol = w >= 860; // hero text + featured card side by side
   return (
-    <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: 'var(--sp-8) var(--container-pad) var(--sp-7)' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 'var(--sp-8)', alignItems: 'start' }}>
+    <section style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: `${twoCol ? 'var(--sp-8)' : 'var(--sp-7)'} var(--container-pad) var(--sp-7)` }}>
+      <div style={{ display: 'grid', gridTemplateColumns: twoCol ? '1.1fr 0.9fr' : '1fr', gap: twoCol ? 'var(--sp-8)' : 'var(--sp-6)', alignItems: 'start' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--sp-4)' }}>
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, letterSpacing: 'var(--ls-wide)', textTransform: 'uppercase', fontSize: 'var(--fs-small)', color: 'var(--gold-deep)' }}>
             Escape game à imprimer · 5-13 ans
@@ -97,6 +100,9 @@ export function Hero({ onShop, onOpen }) {
 }
 
 export function ReassuranceBand() {
+  const w = useWidth();
+  // 4-up on desktop, 2x2 on tablet, single column on phones.
+  const cols = w >= 900 ? 'repeat(4, minmax(0, 1fr))' : w >= 560 ? 'repeat(2, minmax(0, 1fr))' : '1fr';
   const items = [
     { icon: 'printer', t: 'Prêt en 15 min', d: 'Imprime, découpe, cache.' },
     { icon: 'monitor-off', t: 'Sans écran', d: 'On joue avec ses mains.' },
@@ -105,7 +111,7 @@ export function ReassuranceBand() {
   ];
   return (
     <div style={{ background: 'var(--surface-sunken)', borderTop: '1px solid var(--border-hairline)', borderBottom: '1px solid var(--border-hairline)' }}>
-      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: 'var(--sp-5) var(--container-pad)', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 'var(--sp-5)' }}>
+      <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: 'var(--sp-5) var(--container-pad)', display: 'grid', gridTemplateColumns: cols, gap: 'var(--sp-5) var(--sp-6)' }}>
         {items.map((it) => (
           <div key={it.t} style={{ display: 'flex', gap: 'var(--sp-3)', alignItems: 'center' }}>
             <span style={{ width: 42, height: 42, borderRadius: 'var(--r-md)', background: 'var(--brand-soft)', color: 'var(--brand-ink)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
