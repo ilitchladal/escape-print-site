@@ -5,6 +5,11 @@ dist-ssr
 .DS_Store
 .vite
 
+# Secrets (clés Stripe, etc.) — ne jamais commiter
+.env
+.env.*
+!.env.example
+
 # Dev server logs
 vite-dev.log
 vite-dev.err.log

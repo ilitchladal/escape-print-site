@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '../components';
 
-export function CartDrawer({ open, items, onClose, onRemove }) {
+export function CartDrawer({ open, items, onClose, onRemove, onCheckout }) {
   const parse = (p) => parseFloat(p.replace('€', '').replace(',', '.').trim());
   const total = items.reduce((s, it) => s + parse(it.price) * it.qty, 0);
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
@@ -58,9 +58,9 @@ export function CartDrawer({ open, items, onClose, onRemove }) {
             <span style={{ color: 'var(--ink-soft)' }}>Total</span>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--fs-h2)', color: 'var(--ink)' }}>{total.toFixed(2).replace('.', ',')} €</span>
           </div>
-          <Button variant="primary" size="lg" disabled={items.length === 0} style={{ width: '100%' }}>Payer ma commande</Button>
+          <Button variant="primary" size="lg" disabled={items.length === 0} onClick={onCheckout} style={{ width: '100%' }}>Payer ma commande</Button>
           <span style={{ fontSize: 'var(--fs-caption)', color: 'var(--ink-faint)', textAlign: 'center', display: 'inline-flex', gap: 6, justifyContent: 'center', alignItems: 'center' }}>
-            <i data-lucide="lock" style={{ width: 13, height: 13 }}></i> Paiement sécurisé · PDF livré par e-mail
+            <i data-lucide="lock" style={{ width: 13, height: 13 }}></i> Paiement sécurisé · Téléchargement immédiat
           </span>
         </div>
       </aside>
