@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "wrangler deploy"
+    "deploy": "vite build && wrangler deploy -c dist/escape_print_site/wrangler.json"
   },
   "dependencies": {
     "react": "^18.3.1",
