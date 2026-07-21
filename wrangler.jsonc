@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "escape-print-site",
+  "main": "./worker/index.js",
+  "compatibility_date": "2025-04-01",
+  // nodejs_compat : requis par le SDK Stripe sur le runtime Workers.
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  }
+}

@@ -1,0 +1,4 @@
+# Copie ce fichier en `.dev.vars` et colle ta clé secrète Stripe (mode test).
+# `.dev.vars` alimente les bindings du Worker en local ; il n'est jamais commité.
+# En production : `wrangler secret put STRIPE_SECRET_KEY`.
+STRIPE_SECRET_KEY=colle_ta_cle_secrete_stripe_ici

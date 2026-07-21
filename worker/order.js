@@ -3,18 +3,17 @@
 import Stripe from 'stripe';
 import { KITS } from '../src/boutique/data.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+export default async function order(request, env) {
+  const url = new URL(request.url);
+  const sessionId = url.searchParams.get('session_id');
+  if (!sessionId) return Response.json({ error: 'session_id manquant' }, { status: 400 });
 
-export default async function handler(req, res) {
-  const sessionId = req.query.session_id;
-  if (!sessionId) return res.status(400).json({ error: 'session_id manquant' });
-
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, { httpClient: Stripe.createFetchHttpClient() });
   const session = await stripe.checkout.sessions.retrieve(sessionId);
-  if (session.payment_status !== 'paid') return res.status(200).json({ paid: false });
+  if (session.payment_status !== 'paid') return Response.json({ paid: false });
 
   // Liens absolus : utilisables tels quels dans un e-mail (n8n) comme sur la page.
-  const proto = req.headers['x-forwarded-proto'] || 'http';
-  const base = `${proto}://${req.headers.host}`;
+  const base = url.origin;
   const ids = (session.metadata?.kits || '').split(',').filter(Boolean);
   const items = ids
     .map((id) => KITS.find((k) => k.id === id))
@@ -28,5 +27,5 @@ export default async function handler(req, res) {
       })),
     }));
 
-  res.status(200).json({ paid: true, email: session.customer_details?.email || null, items });
+  return Response.json({ paid: true, email: session.customer_details?.email || null, items });
 }

@@ -4,12 +4,10 @@
 import Stripe from 'stripe';
 import { KITS } from '../src/boutique/data.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+export default async function checkout(request, env) {
+  if (request.method !== 'POST') return Response.json({ error: 'Méthode non autorisée' }, { status: 405 });
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Méthode non autorisée' });
-
-  const { items = [] } = req.body || {};
+  const { items = [] } = await request.json().catch(() => ({}));
   const line_items = [];
   const ids = [];
   for (const { id, qty } of items) {
@@ -25,9 +23,10 @@ export default async function handler(req, res) {
       },
     });
   }
-  if (!line_items.length) return res.status(400).json({ error: 'Panier vide ou invalide' });
+  if (!line_items.length) return Response.json({ error: 'Panier vide ou invalide' }, { status: 400 });
 
-  const origin = req.headers.origin || `http://${req.headers.host}`;
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, { httpClient: Stripe.createFetchHttpClient() });
+  const origin = request.headers.get('origin') || new URL(request.url).origin;
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     line_items,
@@ -37,5 +36,5 @@ export default async function handler(req, res) {
     cancel_url: origin,
   });
 
-  res.status(200).json({ url: session.url });
+  return Response.json({ url: session.url });
 }

@@ -4,16 +4,18 @@
 import Stripe from 'stripe';
 import { KITS } from '../src/boutique/data.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+export default async function download(request, env) {
+  const url = new URL(request.url);
+  const session_id = url.searchParams.get('session_id');
+  const kitId = url.searchParams.get('kit');
+  const file = url.searchParams.get('file');
+  if (!session_id) return Response.json({ error: 'session_id manquant' }, { status: 400 });
 
-export default async function handler(req, res) {
-  const { session_id, kit: kitId, file } = req.query;
-  if (!session_id) return res.status(400).json({ error: 'session_id manquant' });
-
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, { httpClient: Stripe.createFetchHttpClient() });
   const session = await stripe.checkout.sessions.retrieve(session_id);
   const ids = (session.metadata?.kits || '').split(',').filter(Boolean);
   if (session.payment_status !== 'paid' || !ids.includes(kitId)) {
-    return res.status(402).json({ error: 'Paiement requis pour accéder à ce fichier' });
+    return Response.json({ error: 'Paiement requis pour accéder à ce fichier' }, { status: 402 });
   }
 
   const kit = KITS.find((k) => k.id === kitId);
@@ -26,8 +28,10 @@ export default async function handler(req, res) {
 
   // Un en-tête HTTP est ASCII-only : nom de secours ASCII + filename* en UTF-8.
   const ascii = download.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '');
-  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-  res.setHeader('Content-Disposition', `attachment; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(download)}`);
-  res.status(200);
-  res.end(body);
+  return new Response(body, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Content-Disposition': `attachment; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(download)}`,
+    },
+  });
 }
