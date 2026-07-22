@@ -5,8 +5,15 @@
   "compatibility_date": "2025-04-01",
   // nodejs_compat : requis par le SDK Stripe sur le runtime Workers.
   "compatibility_flags": ["nodejs_compat"],
+  // Garde l'URL *.workers.dev active en plus du domaine personnalisé.
+  "workers_dev": true,
   "assets": {
     "binding": "ASSETS",
     "not_found_handling": "single-page-application"
-  }
+  },
+  // Domaines personnalisés : Cloudflare crée le DNS + le certificat HTTPS.
+  "routes": [
+    { "pattern": "escape-print.fr", "custom_domain": true },
+    { "pattern": "www.escape-print.fr", "custom_domain": true }
+  ]
 }
