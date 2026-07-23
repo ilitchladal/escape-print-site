@@ -9,7 +9,10 @@
   "workers_dev": true,
   "assets": {
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    // Sans ça, la navigation (clic de lien) vers /api/* tombe sur le fallback
+    // SPA (index.html) au lieu d'exécuter le Worker. On force le Worker d'abord.
+    "run_worker_first": ["/api/*"]
   },
   // Domaines personnalisés : Cloudflare crée le DNS + le certificat HTTPS.
   "routes": [
