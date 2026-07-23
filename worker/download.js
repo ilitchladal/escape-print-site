@@ -12,7 +12,13 @@ export default async function download(request, env) {
   if (!session_id) return Response.json({ error: 'session_id manquant' }, { status: 400 });
 
   const stripe = new Stripe(env.STRIPE_SECRET_KEY, { httpClient: Stripe.createFetchHttpClient() });
-  const session = await stripe.checkout.sessions.retrieve(session_id);
+  let session;
+  try {
+    session = await stripe.checkout.sessions.retrieve(session_id);
+  } catch (e) {
+    // Session inconnue/expirée : message propre plutôt qu'un crash 500.
+    return Response.json({ error: 'Session introuvable ou expirée' }, { status: 404 });
+  }
   const ids = (session.metadata?.kits || '').split(',').filter(Boolean);
   if (session.payment_status !== 'paid' || !ids.includes(kitId)) {
     return Response.json({ error: 'Paiement requis pour accéder à ce fichier' }, { status: 402 });

@@ -9,7 +9,13 @@ export default async function order(request, env) {
   if (!sessionId) return Response.json({ error: 'session_id manquant' }, { status: 400 });
 
   const stripe = new Stripe(env.STRIPE_SECRET_KEY, { httpClient: Stripe.createFetchHttpClient() });
-  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  let session;
+  try {
+    session = await stripe.checkout.sessions.retrieve(sessionId);
+  } catch (e) {
+    // Session inconnue/expirée : on répond proprement plutôt que de planter (500).
+    return Response.json({ paid: false, error: 'Session introuvable' }, { status: 404 });
+  }
   if (session.payment_status !== 'paid') return Response.json({ paid: false });
 
   // Liens absolus : utilisables tels quels dans un e-mail (n8n) comme sur la page.
