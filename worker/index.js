@@ -3,11 +3,13 @@
 import checkout from './checkout.js';
 import order from './order.js';
 import download from './download.js';
+import webhook from './webhook.js';
 
 const routes = {
   '/api/checkout': checkout,
   '/api/order': order,
   '/api/download': download,
+  '/api/webhook': webhook,
 };
 
 export default {
