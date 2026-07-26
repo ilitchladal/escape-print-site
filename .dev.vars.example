@@ -9,6 +9,7 @@ STRIPE_SECRET_KEY=colle_ta_cle_secrete_stripe_ici
 # Webhooks → ton endpoint (/api/webhook) → « Signing secret ». Commence par whsec_…
 STRIPE_WEBHOOK_SECRET=colle_ton_secret_webhook_stripe
 
-# URL du workflow n8n qui envoie l'email de téléchargement (voie B).
-# Après un paiement réussi, le webhook y POSTe { sessionId, email, items }.
-N8N_WEBHOOK_URL=https://ton-instance-n8n/webhook/xxxxxxxx
+# Clé API Resend — envoi de l'email de téléchargement après paiement.
+# Dashboard Resend → API Keys. Commence par re_… Le domaine escape-print.fr
+# doit être vérifié chez Resend (enregistrements DNS dans Cloudflare).
+RESEND_API_KEY=colle_ta_cle_api_resend

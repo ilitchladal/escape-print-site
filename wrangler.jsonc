@@ -6,7 +6,7 @@
   // `wrangler secret put <NOM>` :
   //   - STRIPE_SECRET_KEY       clé API Stripe
   //   - STRIPE_WEBHOOK_SECRET   signature du webhook (POST /api/webhook)
-  //   - N8N_WEBHOOK_URL         workflow n8n qui envoie l'email de téléchargement
+  //   - RESEND_API_KEY          envoi de l'email de téléchargement (Resend)
   "compatibility_date": "2025-04-01",
   // nodejs_compat : requis par le SDK Stripe sur le runtime Workers.
   "compatibility_flags": ["nodejs_compat"],
