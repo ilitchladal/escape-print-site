@@ -19,6 +19,11 @@
     // SPA (index.html) au lieu d'exécuter le Worker. On force le Worker d'abord.
     "run_worker_first": ["/api/*"]
   },
+  // Stockage privé des PDF payants. /api/download vérifie le paiement puis
+  // sert l'objet depuis ce bucket (jamais exposé publiquement).
+  "r2_buckets": [
+    { "binding": "KITS_BUCKET", "bucket_name": "escape-print-kits" }
+  ],
   // Domaines personnalisés : Cloudflare crée le DNS + le certificat HTTPS.
   "routes": [
     { "pattern": "escape-print.fr", "custom_domain": true },

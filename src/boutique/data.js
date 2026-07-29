@@ -4,11 +4,11 @@ export const KITS = [
     tags: ['Suspects', 'Indices', 'Malle'],
     blurb: 'Cette nuit, le tableau le plus précieux du Musée des Merveilles a disparu. Le renard détective recrute ta brigade : démasquez le coupable parmi les suspects et retrouvez le tableau avant l\'ouverture des portes.',
     rating: null, reviews: null, price: '12,90 €', priceCents: 1290, launch: true, regularPrice: '17,90 €', launchUntil: '1ᵉʳ septembre',
-    // Un kit = plusieurs fichiers, livrés en stockage privé après paiement.
+    // Un kit = plusieurs fichiers, livrés depuis le bucket R2 privé après paiement.
+    // `name` = nom du fichier téléchargé ; `key` = clé de l'objet dans R2.
     files: [
-      { name: 'Mystère au Musée — Livret de jeu.pdf' },
-      { name: 'Mystère au Musée — Cartes indices.pdf' },
-      { name: 'Mystère au Musée — Guide de l\'animateur.pdf' },
+      { name: 'Guide organisateur — Mystère au Musée.pdf', key: 'mystere/guide-organisateur.pdf' },
+      { name: 'Livret ressource — Mystère au Musée.pdf', key: 'mystere/livret-ressource.pdf' },
     ] },
   { id: 'pixel', theme: 'pirates', soon: true, title: 'Pixel Pirates — La Carte des 7 Fruits', meta: 'aventure pixel · 7-10 ans',
     tags: ['Pixel', 'Carte', 'Fruits'], blurb: 'Une chasse au trésor en pixel art : reconstitue la carte des 7 fruits avant l\'équipage rival.' },

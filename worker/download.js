@@ -1,6 +1,6 @@
 // GET /api/download?session_id=…&kit=…&file=… — sert un fichier de kit.
 // Le lien n'est valide que si la session est payée ET contient bien ce kit.
-// Fichier factice pour l'instant : on branchera le vrai stockage privé plus tard.
+// Le vrai PDF est servi depuis le bucket R2 privé (binding KITS_BUCKET).
 import Stripe from 'stripe';
 import { KITS } from '../src/boutique/data.js';
 
@@ -25,19 +25,20 @@ export default async function download(request, env) {
   }
 
   const kit = KITS.find((k) => k.id === kitId);
-  const name = file || kit?.files?.[0]?.name || 'fichier.pdf';
-  const download = name.replace(/\.pdf$/i, '') + '.txt';
-  const body =
-    `FICHIER FACTICE — ${name}\n\n` +
-    `Merci pour ton achat de « ${kit?.title} ».\n` +
-    `Le vrai PDF sera servi ici depuis le stockage privé une fois branché.\n`;
+  // On ne sert que les fichiers réellement déclarés pour ce kit (le nom vient
+  // du client, on ne fait donc jamais confiance à `file` pour la clé R2).
+  const entry = kit?.files?.find((f) => f.name === file) || kit?.files?.[0];
+  if (!entry) return Response.json({ error: 'Fichier introuvable' }, { status: 404 });
+
+  const object = await env.KITS_BUCKET.get(entry.key);
+  if (!object) return Response.json({ error: 'Fichier indisponible' }, { status: 404 });
 
   // Un en-tête HTTP est ASCII-only : nom de secours ASCII + filename* en UTF-8.
-  const ascii = download.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '');
-  return new Response(body, {
+  const ascii = entry.name.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '');
+  return new Response(object.body, {
     headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Content-Disposition': `attachment; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(download)}`,
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(entry.name)}`,
     },
   });
 }
